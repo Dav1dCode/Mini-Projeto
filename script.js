@@ -14,12 +14,14 @@ function mostrarDados() {
     const editarButton = document.createElement("button");
     editarButton.textContent = "Editar";
     editarButton.addEventListener("click", () => editarDado(index));
+    editarButton.classList.add("button-editar");
     li.appendChild(editarButton);
 
     // Botão para deletar o dado
     const deletarButton = document.createElement("button");
     deletarButton.textContent = "Deletar";
     deletarButton.addEventListener("click", () => deletarDado(index));
+    deletarButton.classList.add("button-deletar");
     li.appendChild(deletarButton);
 
     lista.appendChild(li);
