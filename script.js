@@ -1,66 +1,69 @@
-// Array para armazenar os dados cadastrados
-let dados = [];
+class Cadastro {
+  constructor(nome, email) {
+    this.nome = nome;
+    this.email = email;
+  }
+}
 
-// Função para exibir os dados cadastrados na página
-function mostrarDados() {
-  const lista = document.getElementById("listaDados");
-  lista.innerHTML = "";
+const dados = [];
 
-  dados.forEach((dado, index) => {
-    const li = document.createElement("li");
-    li.textContent = dado;
+const form = document.getElementById('cadastroForm');
+const listaDados = document.getElementById('listaDados').getElementsByTagName('tbody')[0];
 
-    // Botão para editar o dado
-    const editarButton = document.createElement("button");
-    editarButton.textContent = "Editar";
-    editarButton.addEventListener("click", () => editarDado(index));
-    editarButton.classList.add("button-editar");
-    li.appendChild(editarButton);
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-    // Botão para deletar o dado
-    const deletarButton = document.createElement("button");
-    deletarButton.textContent = "Deletar";
-    deletarButton.addEventListener("click", () => deletarDado(index));
-    deletarButton.classList.add("button-deletar");
-    li.appendChild(deletarButton);
+  const nome = document.getElementById('nome').value;
+  const email = document.getElementById('email').value;
 
-    lista.appendChild(li);
+  const novoCadastro = new Cadastro(nome, email);
+  dados.push(novoCadastro);
+
+  atualizarLista();
+  form.reset();
+});
+
+function atualizarLista() {
+  listaDados.innerHTML = '';
+
+  dados.forEach((cadastro, index) => {
+    const row = listaDados.insertRow();
+    const cellNome = row.insertCell(0);
+    const cellEmail = row.insertCell(1);
+    const cellAcoes = row.insertCell(2);
+
+    cellNome.textContent = cadastro.nome;
+    cellEmail.textContent = cadastro.email;
+
+    const btnEditar = document.createElement('button');
+    btnEditar.textContent = 'Editar';
+    btnEditar.classList.add('btn');
+    btnEditar.addEventListener('click', () => editarCadastro(index));
+
+    const btnExcluir = document.createElement('button');
+    btnExcluir.textContent = 'Excluir';
+    btnExcluir.classList.add('btn');
+    btnExcluir.addEventListener('click', () => excluirCadastro(index));
+
+    cellAcoes.appendChild(btnEditar);
+    cellAcoes.appendChild(btnExcluir);
   });
 }
 
-// Função para cadastrar um novo dado
-function cadastrarDado(nome) {
-  dados.push(nome);
-  mostrarDados();
-}
+function editarCadastro(index) {
+  const novoNome = prompt('Digite o novo nome:');
+  const novoEmail = prompt('Digite o novo email:');
 
-// Função para editar um dado cadastrado
-function editarDado(index) {
-  const novoNome = prompt("Digite o novo nome:");
-  if (novoNome !== null) {
-    dados[index] = novoNome;
-    mostrarDados();
+  if (novoNome !== null && novoEmail !== null) {
+    dados[index].nome = novoNome;
+    dados[index].email = novoEmail;
+    atualizarLista();
   }
 }
 
-// Função para deletar um dado cadastrado
-function deletarDado(index) {
-  dados.splice(index, 1);
-  mostrarDados();
-}
-
-// Evento de submissão do formulário de cadastro
-document.getElementById("formCadastro").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const inputNome = document.getElementById("inputNome");
-  const nome = inputNome.value.trim();
-  if (nome !== "") {
-    cadastrarDado(nome);
-    inputNome.value = "";
-  } else {
-    alert("Por favor, insira um nome válido.");
+function excluirCadastro(index) {
+  if (confirm('Tem certeza que deseja excluir este cadastro?')) {
+    dados.splice(index, 1);
+    atualizarLista();
   }
-});
-
-// Exibir os dados cadastrados ao carregar a página
-mostrarDados();
+}
