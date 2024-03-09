@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Site de Cadastro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Site de Cadastro</h1>
 
-  <!-- Formulário para cadastrar novo dado -->
-  <form id="formCadastro" class="form">
-    <input type="text" id="inputNome" class="input" placeholder="Nome">
-    <input type="submit" value="Cadastrar" class="button">
+  <form id="cadastroForm">
+    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="text" id="email" placeholder="Email" required>
+    <input type="submit" value="Cadastrar">
   </form>
 
-  <!-- Lista de dados cadastrados -->
-  <ul id="listaDados" class="lista-dados"></ul>
+  <table id="listaDados">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
   <script src="script.js"></script>
 </body>
