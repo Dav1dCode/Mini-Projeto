@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background: linear-gradient(45deg, #1db954, #191414);
 }
 
 .container {
@@ -12,7 +12,7 @@ body {
 }
 
 .form-container, .data-container {
-  background-color: #1db954;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -63,7 +63,6 @@ button:hover {
 .data-container li {
   margin-bottom: 8px;
   padding: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 
