@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Adiciona um overlay para melhor legibilidade */
 }
 
 .form-container, .data-container {
