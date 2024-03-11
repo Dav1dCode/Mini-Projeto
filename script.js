@@ -1,69 +1,54 @@
-class Cadastro {
-  constructor(nome, email) {
-    this.nome = nome;
+class User {
+  constructor(username, email, password) {
+    this.username = username;
     this.email = email;
+    this.password = password;
   }
 }
 
-const dados = [];
+const userList = [];
 
-const form = document.getElementById('cadastroForm');
-const listaDados = document.getElementById('listaDados').getElementsByTagName('tbody')[0];
+const form = document.getElementById('signup-form');
+const dataList = document.getElementById('data-list');
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
-  const nome = document.getElementById('nome').value;
+  const username = document.getElementById('username').value;
   const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-  const novoCadastro = new Cadastro(nome, email);
-  dados.push(novoCadastro);
+  const newUser = new User(username, email, password);
+  userList.push(newUser);
 
-  atualizarLista();
+  displayData(newUser);
   form.reset();
 });
 
-function atualizarLista() {
-  listaDados.innerHTML = '';
+function displayData(user) {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <strong>Username:</strong> ${user.username}<br>
+    <strong>Email:</strong> ${user.email}<br>
+    <strong>Password:</strong> ${user.password}
+    <button class="edit-btn">Editar</button>
+    <button class="delete-btn">Deletar</button>
+  `;
+  dataList.appendChild(listItem);
 
-  dados.forEach((cadastro, index) => {
-    const row = listaDados.insertRow();
-    const cellNome = row.insertCell(0);
-    const cellEmail = row.insertCell(1);
-    const cellAcoes = row.insertCell(2);
+  const editBtn = listItem.querySelector('.edit-btn');
+  const deleteBtn = listItem.querySelector('.delete-btn');
 
-    cellNome.textContent = cadastro.nome;
-    cellEmail.textContent = cadastro.email;
-
-    const btnEditar = document.createElement('button');
-    btnEditar.textContent = 'Editar';
-    btnEditar.classList.add('btn');
-    btnEditar.addEventListener('click', () => editarCadastro(index));
-
-    const btnExcluir = document.createElement('button');
-    btnExcluir.textContent = 'Excluir';
-    btnExcluir.classList.add('btn');
-    btnExcluir.addEventListener('click', () => excluirCadastro(index));
-
-    cellAcoes.appendChild(btnEditar);
-    cellAcoes.appendChild(btnExcluir);
+  editBtn.addEventListener('click', function() {
+    // Implementar a lógica de edição
+    console.log('Editar usuário:', user);
   });
-}
 
-function editarCadastro(index) {
-  const novoNome = prompt('Digite o novo nome:');
-  const novoEmail = prompt('Digite o novo email:');
-
-  if (novoNome !== null && novoEmail !== null) {
-    dados[index].nome = novoNome;
-    dados[index].email = novoEmail;
-    atualizarLista();
-  }
-}
-
-function excluirCadastro(index) {
-  if (confirm('Tem certeza que deseja excluir este cadastro?')) {
-    dados.splice(index, 1);
-    atualizarLista();
-  }
+  deleteBtn.addEventListener('click', function() {
+    // Implementar a lógica de exclusão
+    const index = userList.indexOf(user);
+    userList.splice(index, 1);
+    dataList.removeChild(listItem);
+    console.log('Usuário deletado:', user);
+  });
 }
