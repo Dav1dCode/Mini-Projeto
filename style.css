@@ -1,7 +1,9 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(45deg, #1db954, #191414);
+  background-image: url('img/textura-da-parede-do-grunge.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container {
